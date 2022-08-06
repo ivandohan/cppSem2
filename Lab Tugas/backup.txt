@@ -1,0 +1,186 @@
+/*
+        Nama File       : 211402067_A05.cpp
+        Nama            : Ivandohan Samuel Siregar
+        NIM             : 211402067
+
+        === Tugas Pemrograman 5 : Soal Nomor 3 ===
+*/
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+struct Node
+{
+    int ayah;
+    int ibu;
+    int jlhAnak;
+    int jlhPendapatan;
+    int jlhAnggota;
+    string namaAyah;
+    string namaIbu;
+    string namaKeluarga;
+
+    Node* next;
+    Node* prev;
+
+    Node(int a, int b, int c, int d, string e, string f, string g){
+        ayah = a;
+        ibu = b;
+        jlhAnak = c;
+        jlhPendapatan = d;
+        namaAyah = e;
+        namaIbu = f;
+        namaKeluarga = g;
+        jlhAnggota = a + b + c;
+        next = NULL;
+    }
+};
+
+class Keluarga {
+public:
+    Node* head;
+    Node* sorted;
+
+    void pushValue(int ayah, int ibu, int jlhAnak, int pendapatan, 
+    string nmAyah, string nmIbu, string nmFam){
+        Node* newNode = new Node(ayah, ibu, jlhAnak, pendapatan, nmAyah, nmIbu, nmFam);
+        newNode->next = head;
+        head = newNode;
+    }
+
+    void sorting(Node*);
+    void sortingKategori(Node*, int);
+
+    void jlhWarga();
+    void meanPendapatan();
+    void cekMampu();
+
+    void printList(Node*);
+};
+
+void Keluarga::sorting(Node* headref)
+{
+    int opsi;
+    sorted = NULL;
+    Node* current = headref;
+
+    cout << "Sorting Berdasarkan  : " << endl;
+    cout << "1. Jumlah Anak Terbanyak" << endl;
+    cout << "2. Pendapatan Keluarga Terbesar" << endl;
+    cout << "Pilihan [1-2] : ";
+    cin >> opsi;
+    // Traverse the given linked list and insert every
+    // node to sorted
+    while (current != NULL) {
+        // Store next for next iteration
+        Node* next = current->next;
+        // insert current in sorted linked list
+        sortingKategori(current, opsi);
+        // Update current
+        current = next;
+    }
+    // Update head_ref to point to sorted linked list
+    head = sorted;
+}
+
+void Keluarga::sortingKategori(Node* newnode, int opsi)
+{
+    switch(opsi){
+        case 1:{
+            if (sorted == NULL || sorted->jlhAnak <= newnode->jlhAnak) {
+                newnode->next = sorted;
+                sorted = newnode;
+            }
+            else {
+                Node* current = sorted;
+                while (current->next != NULL
+                    && current->next->jlhAnak > newnode->jlhAnak) {
+                    current = current->next;
+                }
+                newnode->next = current->next;
+                current->next = newnode;
+            }
+        }
+            break;
+        
+        case 2:{
+            if (sorted == NULL || sorted->jlhPendapatan <= newnode->jlhPendapatan) {
+                newnode->next = sorted;
+                sorted = newnode;
+            }
+            else {
+                Node* current = sorted;
+                while (current->next != NULL
+                    && current->next->jlhPendapatan > newnode->jlhPendapatan) {
+                    current = current->next;
+                }
+                newnode->next = current->next;
+                current->next = newnode;
+            }
+        }
+    }
+}
+
+void Keluarga::printList(Node* head)
+{
+    while (head != NULL) {
+        cout << head->namaAyah << " ";
+        head = head->next;
+    }
+    cout << endl;
+}
+
+int main()
+{
+    Keluarga list;
+    list.head = NULL;
+
+    list.pushValue(1,1,3,8000,"Juki", "Ros", "Siregar");
+    list.pushValue(1,1,1,10000,"Ivando", "Rin", "DOhann");
+
+    list.printList(list.head);
+    list.sorting(list.head);
+    list.printList(list.head);
+
+}
+
+void Keluarga::sorting(Node* start)
+{
+    int opsi;
+	int swapped, i;
+	Node *ptr1;
+	Node *lptr = NULL;
+
+    // cout << "Sorting Berdasarkan  : " << endl;
+    // cout << "1. Jumlah Anak Terbanyak" << endl;
+    // cout << "2. Pendapatan Keluarga Terbesar" << endl;
+    // cout << "Pilihan [1-2] : ";
+    // cin >> opsi;
+
+    /* Checking for empty list */
+	if (start == NULL)
+		return;
+
+	do
+	{
+		swapped = 0;
+		ptr1 = start;
+
+		while (ptr1->next != lptr)
+		{
+			if (ptr1->jlhAnak > ptr1->next->jlhAnak)
+			{
+				swap(ptr1->jlhAnak, ptr1->next->jlhAnak);
+				swapped = 1;
+			}
+			ptr1 = ptr1->next;
+		}
+		lptr = ptr1;
+	}
+	while (swapped);
+
+    cout << ptr1->jlhAnak << endl;
+
+}

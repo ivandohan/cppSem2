@@ -1,0 +1,6 @@
+Menu kalkulator konversi suhu :
+    1. Celcius
+    2. Reamur
+    3. Fahreinheit
+    4. Kelvin
+Pilih menu :

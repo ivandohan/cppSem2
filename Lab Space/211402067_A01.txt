@@ -1,0 +1,10 @@
+===== Username : p =====
+Huruf Acak = 
+HWFPLBBCQGNCPCFQDFCLKZXEUX¨Ð÷
+OJBIODLXLHEMHPSALYYKNNPLUH¨Ð÷
+UEQTREWTHRUWZBMLTYLSIBPAUZ¨Ð÷
+
+Benar		= 2
+Salah		= 1
+Jumlah Game	= 3
+
